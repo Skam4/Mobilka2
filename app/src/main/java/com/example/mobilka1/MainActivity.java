@@ -16,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView questionTextView;
     private int currentIndex = 0;
     private boolean answerWasShown;
+    private int correctAnswersCount = 0;
+
+    private int lastAnswer = 0;
+
     private int questionId;
     private boolean isTrue;
 
@@ -61,10 +65,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentIndex = (currentIndex + 1) % questions.length;
-                setNextQuestion();
+                try {
+                    setNextQuestion();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
-        setNextQuestion();
+        try {
+            setNextQuestion();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public class Question {
@@ -95,15 +107,33 @@ public class MainActivity extends AppCompatActivity {
             messageId = R.string.answer_was_shown;
         } else {
             if (userAnswer == correctAnswer)
+            {
                 messageId = R.string.correct_answer;
+                lastAnswer = 1;
+            }
             else
+            {
                 messageId = R.string.incorrect_answer;
+                lastAnswer = 0;
+            }
         }
         Toast.makeText(this, messageId, Toast.LENGTH_SHORT).show();
     }
 
-    private void setNextQuestion()
-    {
+    private void setNextQuestion() throws InterruptedException {
+        //correctAnswersCount
+        if(lastAnswer == 1)
+        {
+            correctAnswersCount++;
+            lastAnswer = 0;
+        }
+
+        if(currentIndex == 4)
+        {
+            Toast.makeText(this, "Odpowiedziałeś na: " + Integer.toString(correctAnswersCount) + " pytań.", Toast.LENGTH_SHORT).show();
+            Thread.sleep(2000);
+        }
+
         questionTextView.setText(questions[currentIndex].getQuestionId());
         answerWasShown = false;
     }

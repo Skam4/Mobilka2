@@ -13,6 +13,6 @@
 
     <string name="correct_answer">Odpowiedź prawidłowa.</string>
     <string name="incorrect_answer">Odpowiedź nieprawidłowa.</string>
-    <string name="answer_was_shown">Odpowiedź została pokazana</string>
+    <string name="answer_was_shown">Odpowiedź była już wyświetlona!</string>
 
 </resources>

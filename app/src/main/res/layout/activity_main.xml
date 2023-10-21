@@ -11,7 +11,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         android:padding="30dp"
         android:id="@+id/question_text_view"/>
 
@@ -40,4 +39,13 @@
         android:text="@string/button_next"
         android:id="@+id/next_button"/>
 
+
+    <Button
+        android:id="@+id/podpowiedz_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Podpowiedź"
+        />
+
 </LinearLayout>
+
